@@ -7,15 +7,14 @@
 
 import Foundation
 
-protocol NetworkManagerDelegate {
-    func updateTableViewCell(_ manager: NetworkManager, anime: AnimeModel)
+protocol NetworkManagerDelegate: AnyObject {
+    func didUpdateAnime(_ networkManeger: NetworkManager, anime: AnimeModel)
     func didFailWithError(error: Error)
 }
 
 class NetworkManager {
     
-    var delegate: NetworkManagerDelegate?
-    
+    weak var delegate: NetworkManagerDelegate?
     
     //Fetch data from api
     func fetchAnimeData(id: String) {
@@ -23,20 +22,20 @@ class NetworkManager {
         let urlString = "https://kitsu.io/api/edge/anime/" + id
         print(urlString)
         
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            fatalError("Cannot create url") }
         
         let session = URLSession(configuration: .default)
         
         let task = session.dataTask(with: url) { (data, response, error) in
             
             if error != nil {
-                self.delegate?.didFailWithError(error: error!)
                 return
             }
             
             if let safeData = data {
                 if let anime = self.parseJSON(safeData) {
-                    self.delegate?.updateTableViewCell(self, anime: anime)
+                    self.delegate?.didUpdateAnime(self, anime: anime)
                 }
             }
         }

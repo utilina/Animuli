@@ -21,6 +21,7 @@
 		9537B565256A74BB00184CB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9537B564256A74BB00184CB4 /* Main.storyboard */; };
 		9537B569256A78B800184CB4 /* TopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537B568256A78B800184CB4 /* TopTableViewCell.swift */; };
 		9537B56D256A82E200184CB4 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537B56C256A82E200184CB4 /* QuizViewController.swift */; };
+		95F407D9256D92FF00B90C99 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F407D8256D92FF00B90C99 /* QuizModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		9537B564256A74BB00184CB4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		9537B568256A78B800184CB4 /* TopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTableViewCell.swift; sourceTree = "<group>"; };
 		9537B56C256A82E200184CB4 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
+		95F407D8256D92FF00B90C99 /* QuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				952D028F256991E2007EA16A /* AnimeData.swift */,
 				952D029925699AFF007EA16A /* AnimeModel.swift */,
 				952D0294256993A9007EA16A /* NetworkManager.swift */,
+				95F407D8256D92FF00B90C99 /* QuizModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +192,7 @@
 				9537B569256A78B800184CB4 /* TopTableViewCell.swift in Sources */,
 				952D026A25696B6A007EA16A /* AppDelegate.swift in Sources */,
 				9537B552256A6D0B00184CB4 /* MenuCell.swift in Sources */,
+				95F407D9256D92FF00B90C99 /* QuizModel.swift in Sources */,
 				952D028D2569918B007EA16A /* TopTableViewController.swift in Sources */,
 				952D0290256991E2007EA16A /* AnimeData.swift in Sources */,
 				952D026C25696B6A007EA16A /* SceneDelegate.swift in Sources */,

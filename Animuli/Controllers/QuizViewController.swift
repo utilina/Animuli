@@ -20,9 +20,12 @@ class QuizViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        quizLabel.text = "0"
+        
         // Do any additional setup after loading the view.
     }
+    
+    
     
 
     /*
