@@ -9,62 +9,154 @@ import UIKit
 
 class TopTableViewController: UITableViewController {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
-    var animeNum = [String]()
-    //var animeImage = [String]()
-    let networkModel = NetworkManager()
+    var fetchMore = false
+    
+    var offset: Int = 0
+    
+    var animeList = [Anime]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.navigationItem.title = "Anime found"
+            }
+        }
+    }
+    
+    let animeRequest = NetworkManager()
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        tableView.rowHeight = 100
+        requestData()
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        networkModel.delegate = self
-        
+        //connect loading cell
+        let loadingNib = UINib(nibName: "LoadingCell", bundle: nil)
+        tableView.register(loadingNib, forCellReuseIdentifier: "loadingCell")
+        searchBar.delegate = self
     }
     
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        if animeNum == [] {
+        if section == 0 {
+            return animeList.count
+        } else if section == 1 && fetchMore {
             return 1
         }
-        return animeNum.count - 1
+        return 0
+        // #warning Incomplete implementation, return the number of rows
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "topCell", for: indexPath) as! TopTableViewCell
-        let stringIndexPath = String(indexPath.row + 1)
-        networkModel.fetchAnimeData(id: stringIndexPath)
-        DispatchQueue.main.async {
-            //print(self.animeID[0])
-            print(self.animeNum)
-            print(indexPath.row)
-            //cell.topLabel?.text = self.animeNum[indexPath.row]
-            tableView.reloadData()
+        
+        if indexPath.section == 0 {
+            //cell for section 0
+            let cell = tableView.dequeueReusableCell(withIdentifier: "topCell", for: indexPath)
+            let anime = animeList[indexPath.row]
+            cell.textLabel?.text = anime.attributes.titles.en_jp
+            cell.detailTextLabel?.text = anime.id
+    
+            //load image
+            let imageURL = URL(string: anime.attributes.posterImage.small)
+            DispatchQueue.main.async {
+                guard let url = imageURL, let imageData = try? Data(contentsOf: url) else { return }
+                cell.imageView?.image = UIImage(data: imageData)
+                //tableView.reloadData()
+            }
+            return cell
+        } else {
+            //cell for section 1
+            let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as! LoadingCell
+            cell.spinner.startAnimating()
+            return cell
         }
-        return cell
     }
+    
+    //MARK: - Table view delegate method
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "goToDetails", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destinationVC = segue.destination as! DetailViewController
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let animeAtributes = self.animeList[indexPath.row].attributes
+            destinationVC.animeImageString = animeAtributes.posterImage.large
+            destinationVC.animeTitle = animeAtributes.titles.en_jp
+            destinationVC.rating = animeAtributes.averageRating
+            destinationVC.status = animeAtributes.status
+        }
+    }
+    
+    // requesting data from api
+    func requestData() {
+        animeRequest.fetchAnimeData { [weak self] result in
+            switch result {
+            case .success(let anime):
+                //print(anime)
+                self?.animeList = anime
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    //MARK: - Loading more anime mathods
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        //Check if it is the end of table
+        let position = scrollView.contentOffset.y
+        if position > (tableView.contentSize.height - scrollView.frame.size.height) {
+            if !self.fetchMore {
+                //call method that load more anime
+                beginFetchMore()
+            }
+        }
+    }
+    
+
+    func beginFetchMore() {
+        
+        fetchMore = true
+        print("Begin fetch")
+        //api paging
+        offset += 20
+        tableView.reloadSections(IndexSet(integer: 1), with: .none)
+        animeRequest.fetchAnimeData(offset: offset) { [weak self] result in
+            switch result {
+            case .success(let anime):
+                self?.animeList.append(contentsOf: anime)
+                self?.fetchMore = false
+            case .failure(let error):
+                print(error)
+            }
+        }
+        
+    }
+}
+
+//MARK: - SearchBar Delegate
+
+extension TopTableViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+    }
+    
 }
 
 //MARK: - Network manager delegate
 
-extension TopTableViewController: NetworkManagerDelegate {
-    
-    func didUpdateAnime(_ networkManeger: NetworkManager, anime: AnimeModel) {
-        animeNum.append(anime.animeTitle)
-        print(animeNum)
-    }
-    
-    func didFailWithError(error: Error) {
-        print("error delegate")
-    }
-}
 
 
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -16,12 +16,13 @@
 		952D028D2569918B007EA16A /* TopTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952D028C2569918B007EA16A /* TopTableViewController.swift */; };
 		952D0290256991E2007EA16A /* AnimeData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952D028F256991E2007EA16A /* AnimeData.swift */; };
 		952D0295256993A9007EA16A /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952D0294256993A9007EA16A /* NetworkManager.swift */; };
-		952D029A25699AFF007EA16A /* AnimeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952D029925699AFF007EA16A /* AnimeModel.swift */; };
 		9537B552256A6D0B00184CB4 /* MenuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537B551256A6D0B00184CB4 /* MenuCell.swift */; };
 		9537B565256A74BB00184CB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9537B564256A74BB00184CB4 /* Main.storyboard */; };
-		9537B569256A78B800184CB4 /* TopTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537B568256A78B800184CB4 /* TopTableViewCell.swift */; };
 		9537B56D256A82E200184CB4 /* QuizViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537B56C256A82E200184CB4 /* QuizViewController.swift */; };
 		95F407D9256D92FF00B90C99 /* QuizModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F407D8256D92FF00B90C99 /* QuizModel.swift */; };
+		95F408A32572A24100B90C99 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F408A12572A24100B90C99 /* LoadingCell.swift */; };
+		95F408A42572A24100B90C99 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95F408A22572A24100B90C99 /* LoadingCell.xib */; };
+		95F408A82572B6D200B90C99 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F408A72572B6D200B90C99 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,12 +37,13 @@
 		952D028C2569918B007EA16A /* TopTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTableViewController.swift; sourceTree = "<group>"; };
 		952D028F256991E2007EA16A /* AnimeData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeData.swift; sourceTree = "<group>"; };
 		952D0294256993A9007EA16A /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		952D029925699AFF007EA16A /* AnimeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimeModel.swift; sourceTree = "<group>"; };
 		9537B551256A6D0B00184CB4 /* MenuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCell.swift; sourceTree = "<group>"; };
 		9537B564256A74BB00184CB4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		9537B568256A78B800184CB4 /* TopTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTableViewCell.swift; sourceTree = "<group>"; };
 		9537B56C256A82E200184CB4 /* QuizViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizViewController.swift; sourceTree = "<group>"; };
 		95F407D8256D92FF00B90C99 /* QuizModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizModel.swift; sourceTree = "<group>"; };
+		95F408A12572A24100B90C99 /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		95F408A22572A24100B90C99 /* LoadingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
+		95F408A72572B6D200B90C99 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +95,8 @@
 				952D028425696EB6007EA16A /* MenuCollectionViewController.swift */,
 				9537B551256A6D0B00184CB4 /* MenuCell.swift */,
 				952D028C2569918B007EA16A /* TopTableViewController.swift */,
-				9537B568256A78B800184CB4 /* TopTableViewCell.swift */,
+				95F408A12572A24100B90C99 /* LoadingCell.swift */,
+				95F408A72572B6D200B90C99 /* DetailViewController.swift */,
 				9537B56C256A82E200184CB4 /* QuizViewController.swift */,
 			);
 			path = Controllers;
@@ -102,6 +105,7 @@
 		952D028225696B91007EA16A /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				95F408A22572A24100B90C99 /* LoadingCell.xib */,
 				9537B564256A74BB00184CB4 /* Main.storyboard */,
 			);
 			path = Views;
@@ -111,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				952D028F256991E2007EA16A /* AnimeData.swift */,
-				952D029925699AFF007EA16A /* AnimeModel.swift */,
 				952D0294256993A9007EA16A /* NetworkManager.swift */,
 				95F407D8256D92FF00B90C99 /* QuizModel.swift */,
 			);
@@ -177,6 +180,7 @@
 			files = (
 				9537B565256A74BB00184CB4 /* Main.storyboard in Resources */,
 				952D027925696B6C007EA16A /* LaunchScreen.storyboard in Resources */,
+				95F408A42572A24100B90C99 /* LoadingCell.xib in Resources */,
 				952D027625696B6C007EA16A /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,16 +193,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				952D0295256993A9007EA16A /* NetworkManager.swift in Sources */,
-				9537B569256A78B800184CB4 /* TopTableViewCell.swift in Sources */,
 				952D026A25696B6A007EA16A /* AppDelegate.swift in Sources */,
 				9537B552256A6D0B00184CB4 /* MenuCell.swift in Sources */,
+				95F408A82572B6D200B90C99 /* DetailViewController.swift in Sources */,
+				95F408A32572A24100B90C99 /* LoadingCell.swift in Sources */,
 				95F407D9256D92FF00B90C99 /* QuizModel.swift in Sources */,
 				952D028D2569918B007EA16A /* TopTableViewController.swift in Sources */,
 				952D0290256991E2007EA16A /* AnimeData.swift in Sources */,
 				952D026C25696B6A007EA16A /* SceneDelegate.swift in Sources */,
 				9537B56D256A82E200184CB4 /* QuizViewController.swift in Sources */,
 				952D027425696B6A007EA16A /* Animuli.xcdatamodeld in Sources */,
-				952D029A25699AFF007EA16A /* AnimeModel.swift in Sources */,
 				952D028525696EB6007EA16A /* MenuCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

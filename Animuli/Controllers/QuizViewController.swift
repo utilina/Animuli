@@ -15,6 +15,16 @@ class QuizViewController: UIViewController {
     @IBOutlet weak var answerButton: UIButton!
     @IBOutlet weak var progressView: UIProgressView!
     
+    private var gameScore = ""
+//    let quizModel = [
+//        QuizModel(title: <#T##String#>, image: <#T##String#>),
+//        QuizModel(title: , image: <#T##String#>),
+//        QuizModel(title: <#T##String#>, image: <#T##String#>),
+//        QuizModel(title: <#T##String#>, image: <#T##String#>),
+//        QuizModel(title: <#T##String#>, image: <#T##String#>),
+//        QuizModel(title: <#T##String#>, image: <#T##String#>)
+//    ]
+    
     
     
 
@@ -26,6 +36,10 @@ class QuizViewController: UIViewController {
     }
     
     
+    @IBAction func answerButtonPressed(_ sender: UIButton) {
+        
+        
+    }
     
 
     /*

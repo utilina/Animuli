@@ -8,7 +8,7 @@
 import Foundation
 
 struct AnimeData: Decodable {
-    let data: Anime
+    let data: [Anime]
 }
 
 struct Anime: Decodable {
@@ -18,7 +18,9 @@ struct Anime: Decodable {
 
 struct AnimeAtributes: Decodable {
     let titles: Title
+    let averageRating: String
     let posterImage: ImageSize
+    let status: String
 }
 
 
@@ -27,6 +29,7 @@ struct Title: Decodable {
 }
 
 struct ImageSize: Decodable {
-    let medium: String
+    let small: String
+    let large: String
 }
 

@@ -7,58 +7,48 @@
 
 import Foundation
 
-protocol NetworkManagerDelegate: AnyObject {
-    func didUpdateAnime(_ networkManeger: NetworkManager, anime: AnimeModel)
-    func didFailWithError(error: Error)
-}
-
 class NetworkManager {
     
-    weak var delegate: NetworkManagerDelegate?
-    
-    //Fetch data from api
-    func fetchAnimeData(id: String) {
-        
-        let urlString = "https://kitsu.io/api/edge/anime/" + id
-        print(urlString)
-        
-        guard let url = URL(string: urlString) else {
-            fatalError("Cannot create url") }
-        
-        let session = URLSession(configuration: .default)
-        
-        let task = session.dataTask(with: url) { (data, response, error) in
-            
-            if error != nil {
-                return
-            }
-            
-            if let safeData = data {
-                if let anime = self.parseJSON(safeData) {
-                    self.delegate?.didUpdateAnime(self, anime: anime)
-                }
-            }
-        }
-        //Start the task
-        task.resume()
-        
+    enum NetworkError: Error {
+        case noDataAvilable
+        case canNotProcessData
     }
     
-    func parseJSON(_ animeData: Data) -> AnimeModel? {
-        //Decode recieved data
-        let decoder = JSONDecoder()
-        do {
-            let decodedData = try decoder.decode(AnimeData.self, from: animeData)
-            let id = decodedData.data.id
-            let title = decodedData.data.attributes.titles.en_jp
-            let image = decodedData.data.attributes.posterImage.medium
-            let anime = AnimeModel(animeID: id, animeTitle: title, animeImage: image)
-            print(anime.animeID, anime.animeImage, anime.animeTitle)
-            return anime
-        } catch {
-            print("error parsing data\(error)")
-            return nil
-        }
+    //Fetch data from api
+    func fetchAnimeData(offset: Int = 0, completion: @escaping(Result<[Anime], NetworkError>) -> Void) {
+        
+            
+            let urlString = "https://kitsu.io/api/edge/anime/?page[limit]=20&page[offset]=\(offset)"
+            //print(urlString)
+            
+            guard let url = URL(string: urlString) else {
+                fatalError("Cannot create url") }
+            
+            let session = URLSession(configuration: .default)
+            
+            let task = session.dataTask(with: url) { (data, response, error) in
+                
+                if error != nil {
+                    return
+                }
+                
+                guard let jsonData = data else {
+                    completion(.failure(.noDataAvilable))
+                    return
+                }
+                do {
+                    let decoder = JSONDecoder()
+                    let decodedData = try decoder.decode(AnimeData.self, from: jsonData)
+                    let animeData = decodedData.data
+                    //print(decodedData)
+                    completion(.success(animeData))
+                } catch {
+                    completion(.failure(.canNotProcessData))
+                }
+            }
+            //Start the task
+            task.resume()
+        
     }
     
 }
